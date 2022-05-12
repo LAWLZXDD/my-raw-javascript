@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+    <div id="addOnClick">
+        <h1>Math Buttons</h1>
+        <label for="number1">Number1: </label>
+        <input type="text" id="number1" />
+        <label for="number1">Number2: </label>
+        <input type="text" id="number2" />
+        <button id="addBTN">Add Numbers</button>
+        <button onclick="subtractNumbers()">Subtract Numbers</button>
+        <button onclick="multiplyNumbers()">Multiply Numbers</button>
+        <button onclick="divideNumbers()">Divide Numbers</button>
+        <ul id="resultsOfButtons">
+            Results List:
+        </ul>
+    </div>
+
+    <div>
+        <h1>Hobbies List</h1>
+        <form id="hobbies-form" onsubmit="addHobby()">
+            <label for="hobby">Enter a hobby: </label>
+            <input type="text" id="hobby" />
+            <button type="submit">Add Hobby</button>
+        </form>
+        <ul id="hobbies-list">
+
+        </ul>
+    </div>
+
+    <div id="array-of-animals">
+        <h1>Favorite Animals</h1>
+        <label for="animals-input">Enter Favorite Animals</label>
+        <input type="text" id="favorite-animals" />
+        <button onclick="addAnimals()">Add Animals</button>
+        <button id="view-animals">View Animals</button>
+        <button id="remove-animals">Remove Last Animal</button>
+        <ul id="list-of-animals">
+
+        </ul>
+    </div>
+    <script type="text/javascript">
+
+        document.getElementById("addBTN").addEventListener("click", function () {
+            let num1 = document.getElementById("number1").value
+            let num2 = document.getElementById("number2").value
+            let result = parseInt(num1) + parseInt(num2)
+            console.log(result)
+            let ulBullets = document.getElementById("resultsOfButtons")
+            let li = document.createElement("li")
+            li.innerHTML = result
+            ulBullets.appendChild(li)
+        })
+
+        function subtractNumbers() {
+            let num1 = document.getElementById("number1").value
+            let num2 = document.getElementById("number2").value
+            let result = parseInt(num1) - parseInt(num2)
+            let ulBullets = document.getElementById("resultsOfButtons")
+            let li = document.createElement("li")
+            li.innerHTML = result
+            ulBullets.appendChild(li)
+        }
+
+        function multiplyNumbers() {
+            let num1 = document.getElementById("number1").value
+            let num2 = document.getElementById("number2").value
+            let result = parseInt(num1) * parseInt(num2)
+            let ulBullets = document.getElementById("resultsOfButtons")
+            let li = document.createElement("li")
+            li.innerHTML = result
+            ulBullets.appendChild(li)
+        }
+
+        function divideNumbers() {
+            let num1 = document.getElementById("number1").value
+            let num2 = document.getElementById("number2").value
+            let result = parseInt(num1) / parseInt(num2)
+            let ulBullets = document.getElementById("resultsOfButtons")
+            let li = document.createElement("li")
+            li.innerHTML = result
+            ulBullets.appendChild(li)
+        }
+
+        function addHobby() {
+            event.preventDefault()
+            let hobby = document.getElementById("hobby").value
+            let hobbyBullets = document.getElementById("hobbies-list")
+            let li = document.createElement("li")
+            li.innerHTML = hobby
+            hobbyBullets.appendChild(li)
+            console.log(hobby)
+        }
+
+        let animalArray = [];
+        function addAnimals() {
+            let animal = document.getElementById("favorite-animals").value
+            animalArray.push(animal)
+            console.log(animalArray)
+            alert(`Added ${animal}`)
+        }
+        document.getElementById("view-animals").addEventListener("click", function () {
+            for (let i = 0; i < animalArray.length; i++) {
+                console.log(animalArray[i])
+                let animal = animalArray[i]
+                let li = document.createElement("li")
+                let animalList = document.getElementById("list-of-animals")
+                li.innerHTML = animal
+                animalList.append(li)
+            }
+        })
+        document.getElementById("remove-animals").addEventListener("click", function () {
+            animalArray.pop()
+            console.log(animalArray)
+        })
+    </script>
+</body>
+
+</html>

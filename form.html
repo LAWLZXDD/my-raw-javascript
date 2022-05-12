@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+    <style>
+        form .form-style {
+            width: 1000px;
+            margin-bottom: 10px;
+        }
+
+        .form-style label {
+            width: 300px;
+            display: inline-block;
+        }
+
+        .form-style .preference-radio {
+            width: 100px;
+            display: inline
+        }
+
+        .form-style .preference-radio label {
+            width: 100px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Registration Form</h1>
+
+    <!-- Form entries
+    1) First Name X
+    2) Last Name X
+    3) birthdate -> type date -> validation?
+    4) Contact Preference -> radio button X
+    5) Contact Number X
+    6) E-mail X
+    7) favorite color -> Menu/Select X
+    8) Programming Languages familiar -> checkbox X
+-->
+
+    <form method="post" id="formregister" action="PostHtmlForm">
+        <fieldset>
+            <legend>Registration Information: </legend>
+            <div class="form-style">
+                <label for="fname">First Name: </label>
+                <input type="text" name="firstname" id="fname" required />
+            </div>
+            <div class="form-style">
+                <label for="lname">Last Name: </label>
+                <input type="text" name="lastname" id="lname" required />
+            </div>
+            <div class="form-style">
+                <label for="bday">Birthdate: </label>
+                <input type="date" name="birthdate" id="bday" required />
+            </div>
+            <div class="form-style">
+                <label for="email">E-mail </label>
+                <input type="email" name="email" id="email" />
+            </div>
+            <div class="form-style">
+                <label for="phone">Phone Number: </label>
+                <input type="tel" id="phone" name="phone" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" placeholder="XXXXXXXXXX">
+            </div>
+            <div class="form-style">
+                <label>Contact Preference: </label>
+                <div class="preference-radio">
+                    <input type="radio" name="contactpref" id="contactpref" value="email" />
+                    <label for="contactpref">Email</label>
+                    <input type="radio" name="contactpref" id="contactphone" value="phone" />
+                    <label for="contactphone">Phone</label>
+                </div>
+            </div>
+            <div class="form-style">
+                <label for="team">Select team to join: </label>
+                <select name="team" id="team">
+                    <option value="team1">Team 1</option>
+                    <option value="team2">Team 2</option>
+                    <option value="team3">Team 3</option>
+                    <option value="team4">Team 4</option>
+                </select>
+            </div>
+            <div class="form-style">
+                <label>Programming Languages Known: </label>
+                <div class="preference-radio">
+                    <input type="checkbox" id="javascript" name="language">
+                    <label for="javascript">Javascript</label>
+                    <input type="checkbox" id="csharp" name="language">
+                    <label for="csharp">C#</label>
+                    <input type="checkbox" id="cplus" name="language">
+                    <label for="cplus">C++</label>
+                    <input type="checkbox" id="java" name="language">
+                    <label for="java">Java</label>
+                </div>
+            </div>
+            <button type="submit">Submit</button>
+        </fieldset>
+    </form>
+
+    <script type="text/javascript">
+        let formRegister = document.getElementById("formregister")
+        let dob = document.getElementById("bday")
+
+
+        formRegister.addEventListener("submit", function () {
+            event.preventDefault()
+
+            let elem = formRegister.elements
+            let object = {}
+
+            for (let i = 0; i < elem.length; i++) {
+                const idName = elem[i].id;
+                idName && (object[idName] = elem[i].value)
+            }
+            console.log(object)
+
+            alert("sending form!")
+            return checkDOB()
+        })
+        dob.addEventListener("change", checkDOB)
+
+        function checkDOB() {
+            let userDOB = new Date(dob.value)
+            let todayDate = new Date()
+            //if the user year is below 18; automatically false
+            // if the user is 18 years in year, check the month and day {
+            //    if the birth month is less than current month it false
+            // }
+            // {if the birth day is less than current day; it false}
+            //if the user is over 18, everything is good
+            if (todayDate.getFullYear() - userDOB.getFullYear() < 18) {
+                dob.setCustomValidity('Must be 18 years old to register')
+                return false
+            }
+            if (todayDate.getFullYear() - userDOB.getFullYear() == 18) {
+                if (todayDate.getMonth() < userDOB.getMonth()) {
+                    dob.setCustomValidity('Must be 18 years old to register')
+                    return false
+                }
+                if (userDOB.getMonth() == todayDate.getMonth()) {
+                    if (todayDate.getDate() < userDOB.getDate()) {
+                        dob.setCustomValidity('Must be 18 years old to register')
+                        return false
+                    }
+                }
+            }
+            dob.setCustomValidity("")
+            return true
+        }
+    </script>
+</body>
+
+</html>
